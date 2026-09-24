@@ -18,7 +18,7 @@ export async function requireRole(roles: AccountRole[]): Promise<CurrentUser> {
 }
 
 /** Requires the user to be FIRM_ADMIN/FIRM_TEAM AND belong to the firm
- * identified by `firmSlug` in the URL — never trust the URL param alone. */
+ * identified by `firmSlug` in the URL - never trust the URL param alone. */
 export async function requireFirmMember(
   firmSlug: string,
 ): Promise<CurrentUser> {
@@ -30,7 +30,7 @@ export async function requireFirmMember(
 }
 
 /** Requires the user to be FIRM_CLIENT AND have access to `clientId` in the
- * URL — and that entity must still be active (a firm can deactivate one
+ * URL - and that entity must still be active (a firm can deactivate one
  * entity without the whole login being blocked, so this can't just be a
  * broader account-status check). */
 export async function requireClientAccess(

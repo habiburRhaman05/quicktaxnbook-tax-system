@@ -9,7 +9,7 @@ export type DocumentRequestStatus =
 export const REQUEST_STATUS_LABELS: Record<DocumentRequestStatus, string> = {
   REQUIRED: 'Requested',
   MISSING: 'Requested',
-  UPLOADED: 'Uploaded — awaiting review',
+  UPLOADED: 'Uploaded - awaiting review',
   RECEIVED: 'Accepted',
   REJECTED: 'Needs another copy',
   WAIVED: 'No longer needed',
@@ -81,7 +81,7 @@ export const ACCEPT_ATTR = '.pdf,.jpg,.jpeg,.png,.doc,.docx';
 export const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
 
 export const formatBytes = (bytes: number | null): string => {
-  if (!bytes) return '—';
+  if (!bytes) return '-';
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;

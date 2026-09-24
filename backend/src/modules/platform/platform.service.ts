@@ -98,14 +98,14 @@ const FIRM_SAFE_SELECT = {
  *
  * This logs the data a real provisioner would need so the intent stays visible
  * in the logs while the real call is on hold. It logs NO sensitive identifiers
- * — never the EIN, SSN, or any credential.
+ * - never the EIN, SSN, or any credential.
  */
 const logGhlProvisionIntent = (
   firm: { id: string; name: string; slug: string; city?: string | null; state?: string | null },
   ownerEmail: string
 ): void => {
   logger.info(
-    `GHL provisioning skipped (mock — no sub-account created). Would provision firm id=${firm.id} ` +
+    `GHL provisioning skipped (mock - no sub-account created). Would provision firm id=${firm.id} ` +
       `slug=${firm.slug} name="${firm.name}" owner=${ownerEmail} ` +
       `location=${firm.city ?? '-'}, ${firm.state ?? '-'}`
   );
@@ -175,7 +175,7 @@ export const onboardFirm = async (input: OnboardFirmInput, platformOwnerId?: str
     });
 
     // owner creation and the admin role only depend on `firm`, not on each
-    // other — run them concurrently to shave a round trip off the transaction.
+    // other - run them concurrently to shave a round trip off the transaction.
     const [owner, adminRole] = await Promise.all([
       tx.user.create({
         data: {
@@ -220,7 +220,7 @@ export const onboardFirm = async (input: OnboardFirmInput, platformOwnerId?: str
     return { firm, owner };
   }, TX_OPTIONS);
 
-  // GoHighLevel sub-account provisioning is deliberately on hold — see
+  // GoHighLevel sub-account provisioning is deliberately on hold - see
   // logGhlProvisionIntent() for the reasoning, and modules/ghl/ghl.service.ts
   // for the flow that replaces it.
   logGhlProvisionIntent(result.firm, ownerEmail);

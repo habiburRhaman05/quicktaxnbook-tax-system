@@ -18,7 +18,7 @@ export interface SaveFileParams {
 }
 
 /** Uploads a buffer to Vercel Blob and records it as a StoredFile row.
- * Works identically in local dev and in production — Blob is a hosted
+ * Works identically in local dev and in production - Blob is a hosted
  * service, not tied to the deployment filesystem, which is what makes it
  * safe to use from Vercel's read-only serverless functions. */
 export const saveFile = async (params: SaveFileParams): Promise<StoredFile> => {
@@ -39,7 +39,7 @@ export const saveFile = async (params: SaveFileParams): Promise<StoredFile> => {
       firmId: params.firmId,
       provider: 'VERCEL_BLOB',
       bucket: 'vercel-blob',
-      // The blob's public URL is globally unique and permanent — stored
+      // The blob's public URL is globally unique and permanent - stored
       // directly as the key rather than reconstructed from a bucket+path
       // pattern the way S3/local storage would be.
       key: blob.url,

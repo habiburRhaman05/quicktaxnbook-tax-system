@@ -129,7 +129,7 @@ const extractErrorMessage = (data: unknown, status: number): string => {
 };
 
 /**
- * The single entry point for every GoHighLevel HTTP call — nothing else in the
+ * The single entry point for every GoHighLevel HTTP call - nothing else in the
  * codebase may call GHL directly.
  *
  * The rules are baked in here so callers cannot forget them:
@@ -138,7 +138,7 @@ const extractErrorMessage = (data: unknown, status: number): string => {
  *  - 429/5xx and network errors retry with exponential backoff (honouring
  *    `Retry-After`), with jitter;
  *  - concurrency is capped per location;
- *  - the access token and the request body are NEVER logged — bodies can carry
+ *  - the access token and the request body are NEVER logged - bodies can carry
  *    PII, and tokens must not reach logs, metrics or error reporters.
  */
 export const ghlRequest = async <T = unknown>(
@@ -156,7 +156,7 @@ export const ghlRequest = async <T = unknown>(
   } = options;
 
   if (!config.ghl.enabled) {
-    throw new GhlApiError('GoHighLevel is disabled — set GHL_ENABLED=true to make live calls', 503);
+    throw new GhlApiError('GoHighLevel is disabled - set GHL_ENABLED=true to make live calls', 503);
   }
   if (!token.accessToken) {
     throw new GhlApiError(`Missing GoHighLevel ${token.kind} token`, 401);
@@ -170,7 +170,7 @@ export const ghlRequest = async <T = unknown>(
     let retryDelay: number | null = null;
 
     // Hold a concurrency slot only for the request itself, never for the backoff
-    // wait below — otherwise a sleeping retry would block other callers.
+    // wait below - otherwise a sleeping retry would block other callers.
     await acquireSlot(concurrencyKey);
     try {
       const response = await fetch(url, {

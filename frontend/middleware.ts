@@ -5,7 +5,7 @@ import { publicUrl } from '@/libs/public-url';
 
 // Fast, cookie-presence-only redirect for obviously-unauthenticated visits.
 // Real authorization (role checks, token validity) happens server-side in
-// each area's layout.tsx via requireRole() — this is a UX shortcut only.
+// each area's layout.tsx via requireRole() - this is a UX shortcut only.
 //
 // `/platform` itself is deliberately NOT protected: it is the public entry where
 // the agency admin enters the agency token + relationship number. Everything

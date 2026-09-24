@@ -112,7 +112,7 @@ interface UploadVars {
  * File upload.
  *
  * Uses XMLHttpRequest rather than fetch because fetch still cannot report
- * upload progress in browsers — and a multi-megabyte upload with no progress
+ * upload progress in browsers - and a multi-megabyte upload with no progress
  * bar reads as a frozen page.
  */
 function uploadWithProgress(vars: UploadVars): Promise<void> {

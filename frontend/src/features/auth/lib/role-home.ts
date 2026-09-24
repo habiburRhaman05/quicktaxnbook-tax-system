@@ -1,6 +1,6 @@
 import type { CurrentUser } from '@/features/auth/types';
 
-/** Where a logged-in user's "home" is — the target of bare /firm, /client,
+/** Where a logged-in user's "home" is - the target of bare /firm, /client,
  * /platform, and / redirects, and of the auth pages once already signed in. */
 export function roleHomePath(user: CurrentUser): string {
   switch (user.accountRole) {

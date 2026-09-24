@@ -5,7 +5,7 @@ import ApiError from '@/shared/utils/api-error';
 
 const ALLOWED_IMAGE_TYPES = new Set(['image/png', 'image/jpeg', 'image/jpg', 'image/webp']);
 
-/** In-memory image upload (avatars/logos) — persisted to disk by storage.service. */
+/** In-memory image upload (avatars/logos) - persisted to disk by storage.service. */
 export const imageUpload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 },

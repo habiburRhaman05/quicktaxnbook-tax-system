@@ -25,7 +25,7 @@ const STAFF_ROLES: AccountRole[] = [
   AccountRole.FIRM_TEAM,
 ];
 
-// Team stays admin-reset-only by design (oversight rule) — Platform Owner,
+// Team stays admin-reset-only by design (oversight rule) - Platform Owner,
 // Firm Admin, and Client all get self-service OTP-based recovery.
 const SELF_PASSWORD_RESET_ROLES: AccountRole[] = [
   AccountRole.PLATFORM_OWNER,
@@ -53,7 +53,7 @@ const publicUser = (user: {
 });
 
 // ---------------------------------------------------------------------------
-// Staff login (Platform Owner / Firm Admin / Firm Team) — shared endpoint
+// Staff login (Platform Owner / Firm Admin / Firm Team) - shared endpoint
 // ---------------------------------------------------------------------------
 
 export const staffLogin = async (email: string, password: string, meta: RequestMeta) => {
@@ -110,7 +110,7 @@ export const logout = async (refreshToken: string): Promise<void> => {
 };
 
 // ---------------------------------------------------------------------------
-// Client login — 3 steps: email -> password -> emailed OTP
+// Client login - 3 steps: email -> password -> emailed OTP
 // ---------------------------------------------------------------------------
 
 const CLIENT_LOGIN_PURPOSE = 'client_login';
@@ -237,8 +237,8 @@ export const clientVerifyOtp = async (loginToken: string, otp: string, meta: Req
 };
 
 // ---------------------------------------------------------------------------
-// Forgot / reset password — OTP-based, for Platform Owner / Firm Admin / Client
-// (Team stays admin-reset-only by design — see SELF_PASSWORD_RESET_ROLES)
+// Forgot / reset password - OTP-based, for Platform Owner / Firm Admin / Client
+// (Team stays admin-reset-only by design - see SELF_PASSWORD_RESET_ROLES)
 // ---------------------------------------------------------------------------
 
 const PASSWORD_RESET_PURPOSE = 'password_reset';
@@ -255,7 +255,7 @@ export const forgotPassword = async (
   const eligible =
     !!user && SELF_PASSWORD_RESET_ROLES.includes(user.accountRole) && user.status === 'ACTIVE';
 
-  // Always return a same-shaped response whether or not the account exists —
+  // Always return a same-shaped response whether or not the account exists -
   // never reveal account existence through this endpoint. For an ineligible
   // account, the token below is signed against a challenge that can never
   // exist, so step 2 fails the same way a wrong OTP would.
@@ -269,7 +269,7 @@ export const forgotPassword = async (
       ipAddress: meta.ipAddress,
     });
     challengeId = challenge.challengeId;
-    // Fire-and-forget for the same reason as the login OTP above — don't let
+    // Fire-and-forget for the same reason as the login OTP above - don't let
     // SMTP latency hang this request once the challenge is already persisted.
     sendPasswordResetOtpEmail(
       user!.email as string,

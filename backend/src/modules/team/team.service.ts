@@ -138,7 +138,7 @@ export const createTeamMember = async (
 
   const member = await prisma.$transaction(async (tx) => {
     // user creation and the team role only depend on `firmId`/inputs already
-    // known — run them concurrently instead of as 2 sequential round trips.
+    // known - run them concurrently instead of as 2 sequential round trips.
     const [user, teamRole] = await Promise.all([
       tx.user.create({
         data: {

@@ -38,7 +38,7 @@ export interface AppNavItem {
   label: string;
   href: string;
   icon: IconName;
-  /** Exact match only — for a nav item that would otherwise capture nested routes it shouldn't. */
+  /** Exact match only - for a nav item that would otherwise capture nested routes it shouldn't. */
   exact?: boolean;
 }
 
@@ -53,7 +53,7 @@ interface AppSidebarProps {
   profileHref: string;
   mobileTitle?: string;
   /** Shown under the app brand, so it's always clear whose workspace is
-   * currently open — plain text (firm name) or an interactive entity
+   * currently open - plain text (firm name) or an interactive entity
    * switcher (client portal, when the login has access to more than one
    * entity). */
   contextSlot?: ReactNode;

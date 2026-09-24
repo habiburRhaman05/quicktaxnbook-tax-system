@@ -1,11 +1,11 @@
-# GoHighLevel Integration — Plan & Decision Record
+# GoHighLevel Integration - Plan & Decision Record
 
 Status: **draft, in progress** · Owner: Habib · Last updated: 2026-09-24
 
 This is the single place where GHL decisions live. Every entry marked **LOCKED** was
 confirmed in conversation; entries marked **PROPOSED** still need a yes/no.
 
-Replaces the earlier "PIT + Webhook migration" spike plan. There is no spike phase —
+Replaces the earlier "PIT + Webhook migration" spike plan. There is no spike phase -
 we build the flows directly and verify against the live API as we go.
 
 ---
@@ -47,7 +47,7 @@ GHL; a URL parameter is never trusted on its own.
 
 ---
 
-## 3. Flow 1 — `/platform` (agency connect) · **first deliverable**
+## 3. Flow 1 - `/platform` (agency connect) · **first deliverable**
 
 1. Anyone visiting `/platform` without a stored agency connection sees a popup
    asking for the **agency PIT** and the agency's **Relationship Number**.
@@ -56,7 +56,7 @@ GHL; a URL parameter is never trusted on its own.
 4. We then fetch **all sub-accounts under that agency** and render them as a list.
 5. Anyone re-visiting `/platform` sees the stored connection state instead of the popup.
 
-Endpoints (built — platform-owner only):
+Endpoints (built - platform-owner only):
 
 | Method | Path | Purpose |
 |---|---|---|
@@ -78,16 +78,16 @@ session can't trap the user behind an unsatisfiable gate.
 
 ---
 
-## 4. Flow 2 — `/firm/:locationId` (firm owner)
+## 4. Flow 2 - `/firm/:locationId` (firm owner)
 
 1. Page loads with `locationId` from the path.
 2. **Agency pre-check** (`precheckLocation`): with the agency PIT, does this
    sub-account exist, and is it already linked to a firm?
 3. Popup asks the firm owner for the sub-account PIT.
-4. `connectFirmToLocation` verifies the token **live** — and requires GHL to echo back
+4. `connectFirmToLocation` verifies the token **live** - and requires GHL to echo back
    the *same* `locationId`, so a valid token for a different sub-account is rejected.
 5. Token is encrypted into `Integration.configEncrypted`, `Firm.ghlLocationId` is set,
-   and an `AuditLog` row is written — all in one transaction.
+   and an `AuditLog` row is written - all in one transaction.
 
 The pre-check is deliberately **non-blocking**: if GHL is disabled, the agency token is
 missing/rejected, or GHL is unreachable, we say so and continue to the token step, which
@@ -95,14 +95,14 @@ is verified for real. Status is reported as `checked / exists / reason`.
 
 ---
 
-## 5. Flow 3 — `/team/:locationId/:teamId` (team member)
+## 5. Flow 3 - `/team/:locationId/:teamId` (team member)
 
 1. Resolve the firm by `locationId`.
 2. Using that firm's stored PIT, check whether `teamId` exists as a user in that
    sub-account (GHL Users API).
 3. Exists → mint our session with team scope. Missing → reject and audit.
 
-Open: whether "all access as team" means our `FIRM_TEAM` role or something broader — §8 Q3.
+Open: whether "all access as team" means our `FIRM_TEAM` role or something broader - §8 Q3.
 
 ---
 
@@ -120,7 +120,7 @@ agency/firm credential flows.
 ## 7. Verified GHL API facts
 
 Checked against `marketplace.gohighlevel.com/docs` on 2026-09-24. Anything not in this
-table is **unverified** and must be confirmed before use — no invented endpoints.
+table is **unverified** and must be confirmed before use - no invented endpoints.
 
 | Fact | Value |
 |---|---|
@@ -135,7 +135,7 @@ table is **unverified** and must be confirmed before use — no invented endpoin
 **Unverified, must be confirmed by a live call:** whether `GET /locations/:locationId`
 accepts an *agency* token (the docs page does not state its token type), and whether a
 sub-account token can read its own location. The code handles both outcomes instead of
-assuming — see §4 step 2.
+assuming - see §4 step 2.
 
 ---
 
@@ -144,23 +144,23 @@ assuming — see §4 step 2.
 | # | Question | Why it matters |
 |---|---|---|
 | ~~Q1~~ | **Resolved (D9):** popup collects the agency PIT **and** the Relationship Number. | |
-| Q1b | You also said: "if possible to get agency access using pti token then you can also keep that but first verify". | The code does exactly this — `verifyAgencyToken()` makes a live call and only stores on success. **Still unverified:** whether the agency PIT alone can read agency-level data. That needs one real call with your token. |
-| ~~Q2~~ | **Resolved (D11):** middle path — delete unused, keep Case/Document/Task/Message. Not yet executed; see §9. | |
+| Q1b | You also said: "if possible to get agency access using pti token then you can also keep that but first verify". | The code does exactly this - `verifyAgencyToken()` makes a live call and only stores on success. **Still unverified:** whether the agency PIT alone can read agency-level data. That needs one real call with your token. |
+| ~~Q2~~ | **Resolved (D11):** middle path - delete unused, keep Case/Document/Task/Message. Not yet executed; see §9. | |
 | Q3 | For `/team/:locationId/:teamId`, does "all access as team" mean our existing `FIRM_TEAM` role, or a tenant-wide grant? | Our RBAC is finer-grained than GHL's roles. |
 | Q4 | Where does "no login required" stop? `/firm/:locationId` is opened by a firm owner who may not have a session yet. | Anyone with the URL + a valid PIT could otherwise claim a sub-account. |
 
 ---
 
-## 9. Prisma schema — trim (**D11 decided: middle path, not yet executed**)
+## 9. Prisma schema - trim (**D11 decided: middle path, not yet executed**)
 
 > **DECIDED:** delete models with no plausible near-term use; **keep** `Case`,
 > `Document`, `Task`, `Message` and everything they depend on. Nothing has been
-> deleted yet — this section is the plan, and the safe sequence is at the end of this section.
+> deleted yet - this section is the plan, and the safe sequence is at the end of this section.
 >
 > Coupled models must move with their parent: keeping `Case` means keeping
 > `Pipeline`, `PipelineStage`, `EngagementType`, `CaseAssignment`,
 > `CaseCollaborator`, `CaseStageHistory`; keeping `Client` means keeping
-> `ClientTag`/`Tag` and `ClientRelationship`. Those are not optional extras —
+> `ClientTag`/`Tag` and `ClientRelationship`. Those are not optional extras -
 > dropping them leaves dangling relation fields on models we keep.
 
 
@@ -172,13 +172,13 @@ Current schema: **95 models, 82 enums**. The application code touches **14 model
 `FirmMemberRole` · `Role` · `Session` · `OtpChallenge` · `OnboardingLink` · `Client` ·
 `ClientAccess` · `Address` · `StoredFile` · `AuditLog` · `Integration`
 
-### Keep — identity / tenancy / account, **plus the Case / Document / Task / Message domain** (per D11)
+### Keep - identity / tenancy / account, **plus the Case / Document / Task / Message domain** (per D11)
 
 The 14 above **plus**: `FirmBranding`, `FirmDomain`, `FirmFeatureFlag`,
 `VerificationToken`, `Invitation`, `MfaFactor`, `MfaRecoveryCode`, `ClientPerson`,
 `ClientRelationship`, `ClientTag`, `Tag`, `WebhookEvent` (kept for future GHL webhooks).
 
-### Delete — the rest (~50 models)
+### Delete - the rest (~50 models)
 
 > Superseded by D11: from the list below, **keep** everything belonging to the Case,
 > Document, Task and Message domains. What is actually deleted is voice/AI, marketing
@@ -207,14 +207,14 @@ Plus every enum that only those models use (roughly 60 of the 82).
 ### Why this needs an explicit yes
 
 1. **It is irreversible in the database.** A migration that removes models issues
-   `DROP TABLE` — every row in them is gone, along with any existing data.
+   `DROP TABLE` - every row in them is gone, along with any existing data.
 2. **It contradicts decision D-earlier** ("additive migrations only, never drop models").
    That rule was written to protect you from exactly this. Overriding it is your call to
    make consciously, not mine to assume.
 3. **It reverses the original architecture.** The first plan had Postgres hold a local
    index/cache of Case, Document and Task because GHL search is limited and rate-limited
    (100 req/10s). Deleting those models means re-adding them later if Phase 5/6 still
-   stand. If GHL has fully replaced that plan, deleting is correct — if not, we should
+   stand. If GHL has fully replaced that plan, deleting is correct - if not, we should
    leave them unused rather than drop them.
 
 ### Recommended safe sequence
@@ -235,9 +235,9 @@ Plus every enum that only those models use (roughly 60 of the 82).
 | `backend/src/modules/ghl/ghl.service.ts` | `precheckLocation` · `verifyLocationToken` · `connectFirmToLocation` |
 | `backend/prisma/schema.prisma` | `IntegrationProvider.GOHIGHLEVEL`, `Firm.ghlLocationId`/`ghlCompanyId`/`ghlConnectedAt`, `Integration.lastVerifiedAt` (all additive) |
 | `backend/src/config/config.ts` | `GHL_*` env vars, all optional so a GHL-less deploy still boots |
-| `backend/src/modules/platform/platform.service.ts` | `logGhlProvisionIntent()` — the deliberate no-op for onboarding |
+| `backend/src/modules/platform/platform.service.ts` | `logGhlProvisionIntent()` - the deliberate no-op for onboarding |
 | `backend/src/modules/ghl/agency.service.ts` | `getAgencyConnection` · `connectAgency` (validate → encrypt → store) · `listSubAccounts` |
-| `backend/src/modules/ghl/ghl.tokens.ts` | `forAgencyConnection()` — prefers the DB connection, falls back to `GHL_AGENCY_PIT` |
+| `backend/src/modules/ghl/ghl.tokens.ts` | `forAgencyConnection()` - prefers the DB connection, falls back to `GHL_AGENCY_PIT` |
 | `backend/prisma/schema.prisma` | `GhlAgencyConnection` model + `User.ghlAgencyConnections` back-relation |
 | `backend/src/modules/platform/{route,controller,validation}.ts` | The three `/v1/platform/ghl/*` endpoints |
 | `frontend/src/components/platform/ghl-agency-card.tsx` | The Connect panel: status badge, token dialog, sub-account table + pagination |
@@ -247,4 +247,4 @@ Plus every enum that only those models use (roughly 60 of the 82).
 
 Verified: `prisma generate`, `tsc --noEmit`, `eslint` all clean.
 Not verified: `vitest` cannot run without a `DATABASE_URL` containing `test`
-(`test/setup.ts` hard-throws otherwise) — pre-existing.
+(`test/setup.ts` hard-throws otherwise) - pre-existing.

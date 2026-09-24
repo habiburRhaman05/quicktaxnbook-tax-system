@@ -51,7 +51,7 @@ export const listMyOpportunities = catchAsync(async (req) => {
   const actor = req.user as AuthActor;
 
   // The client id comes from the caller's own access grants, never the query
-  // string — a client must not be able to read another client's pipeline by
+  // string - a client must not be able to read another client's pipeline by
   // guessing an id.
   const clientId = query.clientId ?? actor.clientIds?.[0];
   if (!clientId || !actor.clientIds?.includes(clientId)) {
@@ -79,13 +79,13 @@ export const listPipelines = catchAsync(async (req) => {
   };
 });
 
-/** Explicit "Refresh" button — bypasses the freshness window. */
+/** Explicit "Refresh" button - bypasses the freshness window. */
 export const refreshOpportunities = catchAsync(async (req) => {
   const actor = req.user as AuthActor;
   const result = await syncFirmOpportunities(actor.firmId as string, { force: true });
   return {
     statusCode: httpStatus.OK,
-    message: result.error ? 'Could not reach GoHighLevel — showing saved data' : 'Synced with GoHighLevel',
+    message: result.error ? 'Could not reach GoHighLevel - showing saved data' : 'Synced with GoHighLevel',
     data: result,
   };
 });

@@ -25,7 +25,7 @@ import { ghlTokenProvider } from './ghl.tokens';
 
 /**
  * How long a sync is considered fresh. Without this, every page load of every
- * tab of every staff member triggers a full walk of the firm's opportunities —
+ * tab of every staff member triggers a full walk of the firm's opportunities -
  * which burns the 100-req/10s per-location budget and makes GoHighLevel latency
  * the app's latency. Callers that must bypass it pass `{ force: true }`.
  */
@@ -54,7 +54,7 @@ const toDate = (value: unknown): Date | undefined => {
 /**
  * Maps GoHighLevel contact ids to our client ids in one pass.
  *
- * `Client.metadata.ghlContactId` is JSON, so it can't be joined on directly —
+ * `Client.metadata.ghlContactId` is JSON, so it can't be joined on directly -
  * loading the firm's clients once and building a lookup beats an N+1 of JSON
  * queries, one per opportunity.
  */
@@ -95,7 +95,7 @@ const runSync = async (firmId: string): Promise<SyncResult> => {
   try {
     token = await ghlTokenProvider.forFirm(firmId);
   } catch (error) {
-    // Firm simply isn't connected to GoHighLevel — not an error worth failing
+    // Firm simply isn't connected to GoHighLevel - not an error worth failing
     // the caller's page load over.
     return { ...empty, error: (error as Error).message };
   }
@@ -130,7 +130,7 @@ const runSync = async (firmId: string): Promise<SyncResult> => {
         ghlPipelineId: remote.id,
         name: remote.name,
         // Guessed once, on first sight, so the board has a sensible default.
-        // Deliberately NOT in `update` — a firm that picks a different document
+        // Deliberately NOT in `update` - a firm that picks a different document
         // pipeline must not have that choice overwritten on every sync.
         isDocumentPipeline: /document/i.test(remote.name),
         lastSyncedAt: ranAt,
@@ -159,7 +159,7 @@ const runSync = async (firmId: string): Promise<SyncResult> => {
         },
       });
     }
-    // A stage removed upstream must not linger — opportunities pointing at it
+    // A stage removed upstream must not linger - opportunities pointing at it
     // are detached by the schema's onDelete: SetNull rather than cascading.
     await prisma.ghlPipelineStage.deleteMany({
       where: { pipelineId: pipeline.id, ghlStageId: { notIn: remoteStages.map((s) => s.id) } },
@@ -252,7 +252,7 @@ const runSync = async (firmId: string): Promise<SyncResult> => {
  * no-ops while the cache is fresh and collapses concurrent callers onto a
  * single in-flight sync.
  *
- * Never throws — a GoHighLevel outage degrades to serving cached rows, which is
+ * Never throws - a GoHighLevel outage degrades to serving cached rows, which is
  * what `error` on the result reports.
  */
 export const syncFirmOpportunities = async (
@@ -291,7 +291,7 @@ export const syncFirmOpportunities = async (
 };
 
 /**
- * Moves an opportunity to a new stage — the push half of the sync.
+ * Moves an opportunity to a new stage - the push half of the sync.
  *
  * Writes to GoHighLevel FIRST and only mirrors locally once it confirms. Doing
  * it the other way round would leave our row claiming a stage GoHighLevel

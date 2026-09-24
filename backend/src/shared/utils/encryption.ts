@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import config from '@/config/config';
 
 // ---------------------------------------------------------------------------
-// Passwords / OTP codes — one-way, slow hash (bcrypt)
+// Passwords / OTP codes - one-way, slow hash (bcrypt)
 // ---------------------------------------------------------------------------
 
 /** Hash a password or OTP code before saving to the database. */
@@ -22,7 +22,7 @@ export const encryptPassword = hashSecret;
 export const isPasswordMatch = compareSecret;
 
 // ---------------------------------------------------------------------------
-// Reversible PII encryption (SSN / EIN) — AES-256-GCM
+// Reversible PII encryption (SSN / EIN) - AES-256-GCM
 // ---------------------------------------------------------------------------
 
 const ALGORITHM = 'aes-256-gcm';
@@ -50,10 +50,10 @@ export const decryptPII = (payload: string): string => {
 };
 
 // ---------------------------------------------------------------------------
-// Blind index — deterministic HMAC, used only for uniqueness lookups on PII
+// Blind index - deterministic HMAC, used only for uniqueness lookups on PII
 // ---------------------------------------------------------------------------
 
-/** Strip everything but digits — used to normalize SSN/EIN before hashing. */
+/** Strip everything but digits - used to normalize SSN/EIN before hashing. */
 export const normalizeDigits = (value: string): string => value.replace(/\D/g, '');
 
 export const lastDigits = (value: string, n = 4): string => {

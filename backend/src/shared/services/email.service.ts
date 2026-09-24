@@ -14,7 +14,7 @@ export const transport = nodemailer.createTransport({
   // Without these, a blocked/slow SMTP host (common on hosts that firewall
   // outbound 587, or bad Gmail app-password creds) can hang the connection
   // for minutes. Since sendEmail() is awaited right after a DB write in the
-  // callers below, that hang used to stall the whole request — the record
+  // callers below, that hang used to stall the whole request - the record
   // was already committed, but the client never got a response and the UI
   // spun forever. Fail fast instead.
   connectionTimeout: 10_000,

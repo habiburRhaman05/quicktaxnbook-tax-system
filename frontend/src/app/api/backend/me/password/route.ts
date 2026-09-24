@@ -14,7 +14,7 @@ import { refreshTokens } from '@/libs/session';
 // Overrides the generic /api/backend/[...path] proxy for this one endpoint:
 // a successful password change revokes every existing session and returns a
 // brand new token pair, so the browser's cookies must be replaced with THAT
-// pair — not with whatever the generic proxy's own refresh logic would do.
+// pair - not with whatever the generic proxy's own refresh logic would do.
 export async function PATCH(req: Request) {
   const cookieStore = await cookies();
   let accessToken = cookieStore.get(ACCESS_COOKIE)?.value;

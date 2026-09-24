@@ -17,20 +17,20 @@ export type GhlTokenKind = 'agency' | 'location';
 export interface GhlToken {
   kind: GhlTokenKind;
   accessToken: string;
-  /** Present for `location` tokens — also used as the concurrency bucket. */
+  /** Present for `location` tokens - also used as the concurrency bucket. */
   locationId?: string;
 }
 
 export type GhlHttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export interface GhlRequestOptions {
-  /** Path only, e.g. `/locations/abc123` — the base URL comes from config. */
+  /** Path only, e.g. `/locations/abc123` - the base URL comes from config. */
   path: string;
   token: GhlToken;
   method?: GhlHttpMethod;
   query?: Record<string, string | number | boolean | undefined>;
   /**
-   * JSON request body. NOTE: never logged and never persisted as-is — GHL
+   * JSON request body. NOTE: never logged and never persisted as-is - GHL
    * payloads may carry PII.
    */
   body?: unknown;

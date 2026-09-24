@@ -10,7 +10,7 @@ async function main() {
 
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) {
-    console.log(`Platform Owner already exists (${email}) — nothing to do.`);
+    console.log(`Platform Owner already exists (${email}) - nothing to do.`);
     return;
   }
 
@@ -32,7 +32,7 @@ async function main() {
   console.log('Platform Owner created:');
   console.log(`  email:    ${owner.email}`);
   console.log(`  password: ${config.platformOwner.password}`);
-  console.log('Store this password somewhere safe — it will not be shown again by this script.');
+  console.log('Store this password somewhere safe - it will not be shown again by this script.');
 }
 
 main()

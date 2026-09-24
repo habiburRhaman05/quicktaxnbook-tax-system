@@ -29,7 +29,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
   // Used only for migrations. On Vercel, DATABASE_URL should be Neon's
-  // pooled (PgBouncer) connection string — serverless functions open many
+  // pooled (PgBouncer) connection string - serverless functions open many
   // short-lived connections, and pooling keeps that from exhausting Postgres.
   // Migrations need a direct (non-pooled) connection, hence this separate URL.
   directUrl = env("DIRECT_URL")
@@ -48,7 +48,7 @@ enum FirmStatus {
 }
 
 /// Top-level account discriminator. Set once at creation, single source of truth
-/// for what a User is — never inferred from which relations happen to exist.
+/// for what a User is - never inferred from which relations happen to exist.
 enum AccountRole {
   PLATFORM_OWNER // operates/sells the platform; not tied to any Firm
   FIRM_ADMIN // owns a Firm's account (FirmMember.isOwner = true)
@@ -736,7 +736,7 @@ model Firm {
 
   // GoHighLevel linkage. Deliberately set ONLY by the "Connect GHL" flow
   // (agency private-integration token pre-check, then the firm's own
-  // sub-account private-integration token) — never created silently during
+  // sub-account private-integration token) - never created silently during
   // firm onboarding. `ghlLocationId` is the sub-account id and is the tenant
   // key every GHL call for this firm must be scoped to.
   ghlLocationId  String?   @unique
@@ -750,7 +750,7 @@ model Firm {
   licenseType       String? // free text: "CTEC", "EA", "CPA", "STATE_BUSINESS", ...
   ownerSsnEncrypted String? // AES-256-GCM encrypted
   ownerSsnLast4     String?
-  identityHash      String? @unique // HMAC-SHA256(pepper, normalized EIN/SSN) blind index — dedup key
+  identityHash      String? @unique // HMAC-SHA256(pepper, normalized EIN/SSN) blind index - dedup key
 
   createdByPlatformAdminId String?
   createdByPlatformAdmin   User?   @relation("FirmOnboardedBy", fields: [createdByPlatformAdminId], references: [id], onDelete: SetNull)
@@ -1621,7 +1621,7 @@ model StoredFile {
   pageCount       Int?
   /// Provider-side id for the stored object. For GHL_MEDIA this is the
   /// GoHighLevel media file id, which is what the Media Library API needs to
-  /// delete or re-read the file — `key` holds its public URL.
+  /// delete or re-read the file - `key` holds its public URL.
   externalFileId  String?
   uploadedById    String?
   uploadIp        String?
@@ -2934,7 +2934,7 @@ model Integration {
 
 /// Agency-scope (company) GoHighLevel credential. Kept separate from
 /// `Integration` because that model is firm-scoped and unique per
-/// [firmId, provider] — an agency connection belongs to no single firm.
+/// [firmId, provider] - an agency connection belongs to no single firm.
 /// `companyId` is unique, so more than one agency can be connected later
 /// without a schema change.
 model GhlAgencyConnection {
@@ -2975,7 +2975,7 @@ enum ClientDocStage {
 // GoHighLevel opportunity mirror
 // ---------------------------------------------------------------------------
 // These three tables are a LOCAL CACHE of what lives in a firm's GoHighLevel
-// sub-account — never the source of truth. GoHighLevel owns this data; we
+// sub-account - never the source of truth. GoHighLevel owns this data; we
 // reconcile against it (see modules/ghl/ghl.opportunity-sync.ts) and anything
 // here that no longer exists upstream is deleted on the next sync.
 //
@@ -2987,7 +2987,7 @@ enum ClientDocStage {
 model GhlPipeline {
   id            String   @id @default(cuid())
   firmId        String
-  /// Pipeline id in GoHighLevel — the reconcile key.
+  /// Pipeline id in GoHighLevel - the reconcile key.
   ghlPipelineId String
   name          String
   /// Set on the pipeline this firm uses for document tracking.
@@ -3008,13 +3008,13 @@ model GhlPipeline {
 model GhlPipelineStage {
   id         String   @id @default(cuid())
   pipelineId String
-  /// Stage id in GoHighLevel — the reconcile key, and what we send on update.
+  /// Stage id in GoHighLevel - the reconcile key, and what we send on update.
   ghlStageId String
   name       String
   position   Int      @default(0)
   /// Client-facing bucket this stage rolls up to. Firms name their stages
   /// differently per pipeline ("Return in Progress" vs "941 / W-2 / 1099 In
-  /// Progress"), but the client portal must show one consistent vocabulary —
+  /// Progress"), but the client portal must show one consistent vocabulary -
   /// so each mirrored stage is classified once, here, on sync.
   clientStage ClientDocStage @default(IN_PROGRESS)
   createdAt  DateTime @default(now())
@@ -3031,7 +3031,7 @@ model GhlPipelineStage {
 model GhlOpportunity {
   id               String  @id @default(cuid())
   firmId           String
-  /// Opportunity id in GoHighLevel — the reconcile key.
+  /// Opportunity id in GoHighLevel - the reconcile key.
   ghlOpportunityId String
   pipelineId       String
   stageId          String?

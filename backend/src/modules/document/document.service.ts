@@ -68,7 +68,7 @@ type DocumentRequestRow = Prisma.DocumentRequestGetPayload<{
  * Maps a request row to JSON-safe output.
  *
  * `sizeBytes` is a Prisma BigInt, and `JSON.stringify` THROWS on BigInt rather
- * than coercing it — returning a raw row here kills the whole response and the
+ * than coercing it - returning a raw row here kills the whole response and the
  * UI spins forever with no error. Every path that selects a file must convert.
  */
 const presentRequest = (row: DocumentRequestRow) => ({
@@ -146,7 +146,7 @@ export const listRequestsForClient = async (firmId: string, clientId: string) =>
   return rows.map(presentRequest);
 };
 
-/** Client portal view — scoped to the caller's own client id. */
+/** Client portal view - scoped to the caller's own client id. */
 export const listMyRequests = async (clientId: string) => {
   const rows = await prisma.documentRequest.findMany({
     where: { clientId, deletedAt: null, isClientVisible: true },
@@ -199,7 +199,7 @@ export interface UploadInput {
   uploadIp?: string;
 }
 
-/** `{contactId}_{name}_{timestamp}.{ext}` — keeps files identifiable in GHL. */
+/** `{contactId}_{name}_{timestamp}.{ext}` - keeps files identifiable in GHL. */
 const buildFileName = (contactId: string, originalName: string, mimeType: string): string => {
   const ext = ALLOWED_MIME.get(mimeType) ?? '';
   const base = originalName
@@ -220,7 +220,7 @@ export const uploadClientDocument = async (firmId: string, input: UploadInput) =
 
   const client = await assertClient(firmId, input.clientId);
 
-  // A request, when given, must belong to this same client — otherwise a
+  // A request, when given, must belong to this same client - otherwise a
   // client could attach a file to another client's checklist item.
   if (input.requestId) {
     const request = await prisma.documentRequest.findFirst({
@@ -299,7 +299,7 @@ export const uploadClientDocument = async (firmId: string, input: UploadInput) =
       data: { currentVersionId: version.id },
     });
 
-    // Fulfilling a request flips it to UPLOADED — staff still accept/reject it.
+    // Fulfilling a request flips it to UPLOADED - staff still accept/reject it.
     if (input.requestId) {
       await tx.documentRequest.update({
         where: { id: input.requestId },
@@ -310,7 +310,7 @@ export const uploadClientDocument = async (firmId: string, input: UploadInput) =
     return created;
   }, TX_OPTIONS);
 
-  // Advance the client's card to "Documents Received". Best-effort by design —
+  // Advance the client's card to "Documents Received". Best-effort by design -
   // the file is already stored, so a CRM failure must not fail the upload.
   void syncDocumentToPipeline(firmId, input.clientId);
 
@@ -358,7 +358,7 @@ export const listDocuments = async (firmId: string, clientId: string) => {
     fileUrl: doc.currentVersion?.file.key ?? null,
     originalName: doc.currentVersion?.file.originalName ?? null,
     mimeType: doc.currentVersion?.file.mimeType ?? null,
-    // BigInt can't be JSON-serialized — send a number the UI can format.
+    // BigInt can't be JSON-serialized - send a number the UI can format.
     sizeBytes: doc.currentVersion?.file.sizeBytes
       ? Number(doc.currentVersion.file.sizeBytes)
       : null,

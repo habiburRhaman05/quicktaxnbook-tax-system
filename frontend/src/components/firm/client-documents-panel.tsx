@@ -200,7 +200,7 @@ export function ClientDocumentsPanel({ clientId }: { clientId: string }) {
                   </TableCell>
                   <TableCell className="text-muted-foreground">
                     {request.documents.length === 0 ? (
-                      '—'
+                      '-'
                     ) : (
                       // A client may send several files against one request, so
                       // list them all rather than implying there was only one.

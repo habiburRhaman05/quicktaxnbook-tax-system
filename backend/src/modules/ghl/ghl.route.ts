@@ -9,13 +9,13 @@ import * as ghlController from './ghl.controller';
 const router = express.Router();
 
 // ---------------------------------------------------------------------------
-// Firm-side GoHighLevel connect — the /firms/:locationId page
+// Firm-side GoHighLevel connect - the /firms/:locationId page
 // ---------------------------------------------------------------------------
 // Opened from a GoHighLevel custom menu link, so it is deliberately public and
 // rate-limited: the sub-account's Private Integration Token is the credential,
 // and it is verified live against GoHighLevel before anything is stored.
 //
-// The location id in the URL is never trusted on its own — it is checked
+// The location id in the URL is never trusted on its own - it is checked
 // against the connected agency first (`getFirmLocationState`).
 router.get('/firm/:locationId', authLimiter, ghlController.getFirmLocationState);
 router.post('/firm/connect', authLimiter, ghlController.connectFirmGhl);

@@ -77,7 +77,7 @@ export const completeOnboardingSchema = z.object({
       email: z.string().email(),
       phone: z.string().min(7),
       password,
-      // Present only when the client is a business/trust/nonprofit — validated
+      // Present only when the client is a business/trust/nonprofit - validated
       // against the client's actual type in the service layer, since the type
       // lives on the Client record, not in this request.
       business: z

@@ -42,7 +42,7 @@ app.use(xss());
 // gzip compression
 app.use(compression());
 
-// enable cors — allowed origins come from config (CORS_ALLOWED_ORIGINS), so
+// enable cors - allowed origins come from config (CORS_ALLOWED_ORIGINS), so
 // adding a deployed frontend doesn't need a code change, just an env var.
 const corsOptions: cors.CorsOptions = {
   origin: (

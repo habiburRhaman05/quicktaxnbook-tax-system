@@ -22,7 +22,7 @@ interface ProxyOptions {
 /**
  * Calls the Express API with the session's access token, transparently
  * refreshing once on a 401 and rotating the browser's cookies. Every
- * authenticated frontend request funnels through this — the generic
+ * authenticated frontend request funnels through this - the generic
  * /api/backend/[...path] proxy and the handful of dedicated auth routes.
  */
 export async function proxyToBackend({

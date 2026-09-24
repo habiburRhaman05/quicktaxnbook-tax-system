@@ -118,17 +118,17 @@ export function MyDocuments({ clientId }: { clientId: string }) {
         }
       />
 
-      {/* Overall progress first — this is what answers "what's going on with
+      {/* Overall progress first - this is what answers "what's going on with
           this work", before the client sees any per-file detail. */}
       <EngagementProgress clientId={clientId} />
 
-      {/* Unprompted upload — the client never has to wait for a request. */}
+      {/* Unprompted upload - the client never has to wait for a request. */}
       <Card flat className="mb-6 p-4">
         <h2 className="mb-1 text-sm font-semibold text-foreground">
           Upload a document
         </h2>
         <p className="mb-3 text-sm text-muted-foreground">
-          Have something to send? Upload it any time — you don&apos;t need to
+          Have something to send? Upload it any time - you don&apos;t need to
           wait for your firm to ask.
         </p>
         <DocumentUploadZone clientId={clientId} />

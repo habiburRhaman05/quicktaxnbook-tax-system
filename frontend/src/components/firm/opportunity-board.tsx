@@ -77,7 +77,7 @@ function OpportunityCard({
         'cursor-grab touch-none rounded-md border border-border bg-card p-3 shadow-sm',
         'hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
         // The original stays in place but muted while its overlay follows the
-        // cursor — without this the column visibly collapses mid-drag.
+        // cursor - without this the column visibly collapses mid-drag.
         isDragging && !overlay && 'opacity-40',
         overlay && 'cursor-grabbing rotate-2 shadow-lg',
       )}
@@ -212,7 +212,7 @@ export function OpportunityBoard({ embedded = false }: { embedded?: boolean } = 
   const Wrapper = embedded ? Fragment : PageLayout;
 
   // Pipeline picker + Refresh. Rendered inside the PageHeader when standalone,
-  // and as its own toolbar when embedded — either way the controls are present.
+  // and as its own toolbar when embedded - either way the controls are present.
   const controls = (
     <div className="flex items-center gap-2">
       {pipelines && pipelines.length > 1 && (
@@ -247,14 +247,14 @@ export function OpportunityBoard({ embedded = false }: { embedded?: boolean } = 
       {embedded ? (
         <div className="mb-4 flex items-center justify-between gap-2">
           <p className="text-sm text-muted-foreground">
-            Drag a card to move it — the change is pushed back to GoHighLevel.
+            Drag a card to move it - the change is pushed back to GoHighLevel.
           </p>
           {controls}
         </div>
       ) : (
         <PageHeader
           title="Document pipeline"
-          subtitle="Synced from GoHighLevel. Drag a card to move it — the change is pushed back to your CRM."
+          subtitle="Synced from GoHighLevel. Drag a card to move it - the change is pushed back to your CRM."
           actions={controls}
         />
       )}
@@ -264,7 +264,7 @@ export function OpportunityBoard({ embedded = false }: { embedded?: boolean } = 
           role="status"
           className="mb-3 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-sm text-amber-700 dark:text-amber-300"
         >
-          Showing saved data — couldn&apos;t reach GoHighLevel.
+          Showing saved data - couldn&apos;t reach GoHighLevel.
           {data.sync.message ? ` (${data.sync.message})` : ''}
         </div>
       )}

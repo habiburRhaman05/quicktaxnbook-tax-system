@@ -20,7 +20,7 @@ import { ghlTokenProvider } from './ghl.tokens';
  * validates a pasted token and replaces it. `GhlAgencyConnection.companyId` is
  * unique, so a second agency can be added later without a schema change.
  *
- * The token itself never leaves this module — only `SAFE_SELECT` fields are ever
+ * The token itself never leaves this module - only `SAFE_SELECT` fields are ever
  * returned, and `tokenEncrypted` is never selected into a response.
  */
 
@@ -35,7 +35,7 @@ const SAFE_SELECT = {
   updatedAt: true,
 } as const;
 
-/** The connection as exposed to callers — never includes `tokenEncrypted`. */
+/** The connection as exposed to callers - never includes `tokenEncrypted`. */
 export interface GhlAgencyConnectionSafe {
   id: string;
   companyId: string | null;
@@ -55,7 +55,7 @@ const findLiveConnection = (): Promise<GhlAgencyConnectionSafe | null> =>
   });
 
 /**
- * Current connection state — `null` means the `/platform` popup should be shown.
+ * Current connection state - `null` means the `/platform` popup should be shown.
  *
  * A stored token GoHighLevel now rejects (revoked or rotated) counts as NOT
  * connected: it is marked as errored so the popup asks for a fresh one. Only an

@@ -13,7 +13,7 @@ const firmsKey = () => ['platform', 'firms'] as const;
 const firmKey = (firmId: string) => ['platform', 'firms', firmId] as const;
 
 /** Empty-string optional fields must become undefined before hitting the
- * backend's zod schema — `.optional()` only skips validation for `undefined`,
+ * backend's zod schema - `.optional()` only skips validation for `undefined`,
  * not `''`. */
 function blankToUndefined<T extends Record<string, unknown>>(obj: T): T {
   const out = { ...obj };

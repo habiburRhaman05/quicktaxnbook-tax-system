@@ -160,7 +160,7 @@ export function GhlFirmConnectGate({
           </span>{' '}
           {firm
             ? `to open ${firm.name}'s dashboard.`
-            : 'to open its dashboard — we set up the firm from this sub-account on first connect.'}{' '}
+            : 'to open its dashboard - we set up the firm from this sub-account on first connect.'}{' '}
           It is verified with GoHighLevel before anything is saved.
         </CardDescription>
       </CardHeader>

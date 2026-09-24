@@ -12,7 +12,7 @@ interface PlatformEntryPageProps {
 }
 
 /**
- * `/platform` — open to the agency admin, no password.
+ * `/platform` - open to the agency admin, no password.
  *
  * - Already signed in as the platform owner: straight to the dashboard.
  * - `?relationshipNumber=...`: the saved token for that agency is verified with

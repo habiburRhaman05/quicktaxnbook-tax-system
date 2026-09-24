@@ -6,7 +6,7 @@ import { CLIENT_STAGE_LABELS } from './ghl.stage-map';
 import { syncFirmOpportunities, type SyncResult } from './ghl.opportunity-sync';
 
 /**
- * Read side of the opportunity mirror. Always serves from our tables — the
+ * Read side of the opportunity mirror. Always serves from our tables - the
  * refresh is triggered alongside, never awaited in a way that makes a
  * GoHighLevel outage look like an app outage.
  */

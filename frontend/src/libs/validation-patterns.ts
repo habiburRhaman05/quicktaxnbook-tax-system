@@ -1,13 +1,13 @@
 /** Shared format/structural checks for identity & address fields collected
  * during firm and client onboarding. Mirrors
- * backend/src/shared/utils/validation-patterns.ts — keep both in sync. */
+ * backend/src/shared/utils/validation-patterns.ts - keep both in sync. */
 
 export const EIN_PATTERN = /^\d{2}-?\d{7}$/;
 export const SSN_PATTERN = /^\d{3}-?\d{2}-?\d{4}$/;
 export const US_ZIP_PATTERN = /^\d{5}(-\d{4})?$/;
 
 // Accepts either a bare vanity subdomain label ("acme") or a full dotted
-// domain ("portal.acme.com") — no protocol/path allowed.
+// domain ("portal.acme.com") - no protocol/path allowed.
 export const DOMAIN_PATTERN =
   /^(?!-)[a-z0-9-]{1,63}(?<!-)(\.(?!-)[a-z0-9-]{1,63}(?<!-))*(\.[a-z]{2,})?$/i;
 
@@ -50,7 +50,7 @@ interface AddressLike {
   country?: string;
 }
 
-/** State/ZIP only have a fixed, checkable format for US addresses — for any
+/** State/ZIP only have a fixed, checkable format for US addresses - for any
  * other country we skip the format check entirely. Call from a schema's
  * superRefine with the field's path prefix, e.g.
  * validateUsAddress(data.firm.address, ctx, ['firm', 'address']). */

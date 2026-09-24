@@ -12,7 +12,7 @@ export interface AuthTokensResponse {
 
 /**
  * The authenticated actor attached to every request by `authenticate()`.
- * This is the single source of truth read by every RBAC check — never
+ * This is the single source of truth read by every RBAC check - never
  * inferred ad-hoc from relations.
  */
 export interface AuthActor {

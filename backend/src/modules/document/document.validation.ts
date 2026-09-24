@@ -28,7 +28,7 @@ export const reviewRequestSchema = z.object({
 
 /**
  * Upload metadata arrives as multipart text fields alongside the file, so every
- * value is a string here — `isRequired`-style coercion is deliberate.
+ * value is a string here - `isRequired`-style coercion is deliberate.
  */
 export const uploadSchema = z.object({
   body: z.object({

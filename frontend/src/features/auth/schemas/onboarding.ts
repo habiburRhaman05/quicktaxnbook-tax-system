@@ -14,7 +14,7 @@ const passwordSchema = z
     'Password must contain at least 1 letter and 1 number',
   );
 
-/** Individual clients: admin already gave name/email/phone at creation —
+/** Individual clients: admin already gave name/email/phone at creation -
  * onboarding just confirms identity and sets a password. */
 export const individualOnboardingSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),

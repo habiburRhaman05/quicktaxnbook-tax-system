@@ -36,7 +36,7 @@ export function usePipelines() {
   });
 }
 
-/** Explicit Refresh button — forces a pull from GoHighLevel. */
+/** Explicit Refresh button - forces a pull from GoHighLevel. */
 export function useRefreshOpportunities() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -63,7 +63,7 @@ interface MoveStageVars {
  *
  * Optimistic: the card moves the instant it is dropped, because waiting on a
  * GoHighLevel round trip would make every drag feel broken. If the push fails
- * the previous board is restored and the error surfaced — the card visibly
+ * the previous board is restored and the error surfaced - the card visibly
  * snaps back rather than silently lying about a stage GHL never accepted.
  */
 export function useMoveStage() {
@@ -117,11 +117,11 @@ export function useMoveStage() {
 }
 
 /**
- * Client portal: the signed-in client's own opportunities — this is what
+ * Client portal: the signed-in client's own opportunities - this is what
  * drives the engagement progress bar ("where is my return at").
  *
  * `clientId` matters once a portal user has more than one entity (see
- * EntitySwitcher) — without it the backend defaults to their first access
+ * EntitySwitcher) - without it the backend defaults to their first access
  * grant, which would show the wrong engagement after switching entities.
  */
 export function useMyDocuments(clientId?: string) {

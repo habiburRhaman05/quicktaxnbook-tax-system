@@ -15,7 +15,7 @@ interface ConnectFirmPayload {
  * Forwards the pasted token to Express, which verifies it with GoHighLevel and
  * links it to the firm before returning. The session tokens it hands back are
  * stripped out of the JSON and set as httpOnly cookies instead, so client
- * JavaScript can never read them — matching the agency connect route.
+ * JavaScript can never read them - matching the agency connect route.
  */
 export async function POST(req: Request): Promise<NextResponse> {
   const payload = await req.text();

@@ -5,7 +5,7 @@ import { proxyToBackend } from '@/libs/proxy';
 /**
  * Generic authenticated proxy: every team/client/platform/profile request
  * from the UI goes through here as /api/backend/<express-path>. Handles
- * token refresh transparently — see libs/proxy.ts.
+ * token refresh transparently - see libs/proxy.ts.
  */
 async function handle(
   req: NextRequest,

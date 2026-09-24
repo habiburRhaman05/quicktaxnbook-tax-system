@@ -319,9 +319,9 @@ export const completeOnboarding = async (
       },
     });
 
-    // None of these depend on each other's result — only on createdUser.id
+    // None of these depend on each other's result - only on createdUser.id
     // (clientAccess) or values already known before the transaction started
-    // — so run them concurrently instead of as 4 sequential round trips.
+    // - so run them concurrently instead of as 4 sequential round trips.
     await Promise.all([
       tx.clientAccess.create({
         data: {
@@ -428,7 +428,7 @@ export const completeOnboarding = async (
 // GoHighLevel client sync
 // ---------------------------------------------------------------------------
 // A firm's clients are the contacts in its own sub-account that carry the
-// "client" tag — nothing else. This only READS from GoHighLevel and mirrors
+// "client" tag - nothing else. This only READS from GoHighLevel and mirrors
 // those contacts into `Client`, so the firm can work with them in the app.
 
 const GHL_CLIENT_TAG = 'new-client';
@@ -485,7 +485,7 @@ export interface GhlClientSyncResult {
  *
  * Matching is by email, then phone, so re-running is idempotent and never
  * duplicates a client. Existing rows are only ever filled in, never
- * overwritten — a firm's own edits win over whatever GoHighLevel holds.
+ * overwritten - a firm's own edits win over whatever GoHighLevel holds.
  *
  * The credential is the firm's own sub-account token, so this can only read
  * that sub-account; a firm with no working credential gets a clear 409 from
@@ -562,7 +562,7 @@ export const syncClientsFromGhl = async (
           updated += 1;
         }
       }
-      // Fill gaps only — never clobber what the firm edited by hand.
+      // Fill gaps only - never clobber what the firm edited by hand.
       const patch: { email?: string; phone?: string } = {};
       if (!match.email && email) patch.email = email;
       if (!match.phone && phone) patch.phone = phone;

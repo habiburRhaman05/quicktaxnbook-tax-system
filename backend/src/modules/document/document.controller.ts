@@ -12,7 +12,7 @@ import * as documentSchema from './document.validation';
  * Resolves which client the CALLER may act on.
  *
  * Staff pass a clientId and it is checked against their firm. A portal client
- * may only ever act on a client id in their own access grants — never one
+ * may only ever act on a client id in their own access grants - never one
  * supplied in the request body, or one client could upload into another's file
  * list by guessing an id.
  */

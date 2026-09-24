@@ -9,7 +9,7 @@ export const SSN_PATTERN = /^\d{3}-?\d{2}-?\d{4}$/;
 export const US_ZIP_PATTERN = /^\d{5}(-\d{4})?$/;
 
 // Accepts either a bare vanity subdomain label ("acme") or a full dotted
-// domain ("portal.acme.com") — matches how Firm.domain is documented in the
+// domain ("portal.acme.com") - matches how Firm.domain is documented in the
 // schema (vanity subdomain or custom domain). No protocol/path allowed.
 export const DOMAIN_PATTERN =
   /^(?!-)[a-z0-9-]{1,63}(?<!-)(\.(?!-)[a-z0-9-]{1,63}(?<!-))*(\.[a-z]{2,})?$/i;
@@ -50,7 +50,7 @@ interface AddressLike {
   country?: string;
 }
 
-/** State/ZIP only have a fixed, checkable format for US addresses — for any
+/** State/ZIP only have a fixed, checkable format for US addresses - for any
  * other country we only check that a value was actually provided, not its
  * shape. Call from a schema's superRefine with the field's path prefix, e.g.
  * validateUsAddress(data.business.address, ctx, ['business', 'address']). */

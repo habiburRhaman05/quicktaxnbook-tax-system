@@ -11,7 +11,7 @@ registry.registerComponent('securitySchemes', 'bearerAuth', {
 });
 
 // NOTE: per-module OpenAPI path registration (auth/team/clients/platform/me) is not
-// wired up yet — this phase focused on the working API surface. Swagger UI will load
+// wired up yet - this phase focused on the working API surface. Swagger UI will load
 // with the security scheme defined but no documented paths. Follow-up work.
 
 const generator = new OpenApiGeneratorV3(registry.definitions);

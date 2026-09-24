@@ -12,7 +12,7 @@ import { ghlTokenProvider } from '@/modules/ghl/ghl.tokens';
 
 /**
  * Keeps the GoHighLevel opportunity for a client's engagement in step with
- * their documents — this is what makes cards appear on the pipeline board.
+ * their documents - this is what makes cards appear on the pipeline board.
  *
  * One opportunity per CLIENT, not per file: you e-sign and invoice a return,
  * not each uploaded W-2. Uploading more documents moves that one card forward
@@ -104,7 +104,7 @@ export const syncDocumentToPipeline = async (
 
     const pipeline = await resolveDocumentPipeline(firmId);
     if (!pipeline || pipeline.stages.length === 0) {
-      logger.warn(`No document pipeline mirrored for firm ${firmId} — skipping card update`);
+      logger.warn(`No document pipeline mirrored for firm ${firmId} - skipping card update`);
       return;
     }
 
@@ -116,7 +116,7 @@ export const syncDocumentToPipeline = async (
     if (!ghlContactId) {
       // Without a GoHighLevel contact there is nothing to hang an opportunity
       // on. The document is still stored and visible in this app.
-      logger.warn(`Client ${clientId} has no GoHighLevel contact — skipping opportunity`);
+      logger.warn(`Client ${clientId} has no GoHighLevel contact - skipping opportunity`);
       return;
     }
 

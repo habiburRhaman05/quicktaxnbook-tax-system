@@ -15,7 +15,7 @@ import { cn } from '@/libs/utils';
 /**
  * Client-facing "where is my work at" view.
  *
- * Reads the SAME opportunity the staff pipeline board and GoHighLevel share —
+ * Reads the SAME opportunity the staff pipeline board and GoHighLevel share -
  * this is deliberately not a separate status, so what the client sees here can
  * never drift from what staff see on the board.
  */
@@ -64,7 +64,7 @@ function Stepper({ stage }: { stage: ClientDocStage }) {
           )}
         >
           <div className="flex w-full items-center">
-            {/* Connector before the dot — skipped for the first step. */}
+            {/* Connector before the dot - skipped for the first step. */}
             <div
               className={cn(
                 'h-0.5 flex-1',
@@ -107,7 +107,7 @@ function Stepper({ stage }: { stage: ClientDocStage }) {
 const pickPrimaryOpportunity = (results: Opportunity[]): Opportunity | undefined => {
   const documentWorkflow = results.filter((o) => o.pipeline.isDocumentPipeline);
   const pool = documentWorkflow.length > 0 ? documentWorkflow : results;
-  // Most recently touched — if a firm somehow runs two engagements at once,
+  // Most recently touched - if a firm somehow runs two engagements at once,
   // the one someone is actively working is more useful than the oldest.
   return [...pool].sort((a, b) => {
     const at = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
@@ -128,7 +128,7 @@ export function EngagementProgress({ clientId }: { clientId: string }) {
     );
   }
 
-  // Not an error state worth alarming over — a brand-new client simply has no
+  // Not an error state worth alarming over - a brand-new client simply has no
   // engagement yet, so there is nothing to chart.
   if (isError) return null;
 
@@ -151,7 +151,7 @@ export function EngagementProgress({ clientId }: { clientId: string }) {
       {data?.sync.degraded && (
         <p className="mt-4 flex items-center gap-1.5 text-xs text-muted-foreground">
           <Icon name="warning" className="h-3.5 w-3.5" />
-          Showing the last known status — we couldn&apos;t reach the server
+          Showing the last known status - we couldn&apos;t reach the server
           just now.
         </p>
       )}

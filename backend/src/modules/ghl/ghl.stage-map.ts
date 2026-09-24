@@ -10,14 +10,14 @@ import { ClientDocStage } from '@prisma/client';
  * "In Preparation" to "Return in Progress" keeps working.
  *
  * Anything unrecognised falls back to IN_PROGRESS and is still shown to the
- * client under its real GoHighLevel name — an unmapped custom stage must never
+ * client under its real GoHighLevel name - an unmapped custom stage must never
  * break the portal or silently read as "Completed".
  */
 
 /** Ordered: the FIRST pattern that matches wins, so specific beats generic. */
 const RULES: Array<{ stage: ClientDocStage; patterns: RegExp[] }> = [
   {
-    // Terminal states first — "Closed / Archived" also contains no other keyword,
+    // Terminal states first - "Closed / Archived" also contains no other keyword,
     // but "Filed" and "Accepted by IRS" must not be read as "in progress".
     stage: ClientDocStage.COMPLETED,
     patterns: [
@@ -39,7 +39,7 @@ const RULES: Array<{ stage: ClientDocStage; patterns: RegExp[] }> = [
     patterns: [/e-?sign/i, /\bsignature\b/i, /\bsigned\b/i, /\b8879\b/i, /\b7004\b/i],
   },
   {
-    // "Sent to Client" / "Ready for Client Review" — the client must act.
+    // "Sent to Client" / "Ready for Client Review" - the client must act.
     // Note "Ready for CPA Review" is internal and is deliberately excluded below.
     stage: ClientDocStage.READY_FOR_REVIEW,
     patterns: [/client\s+review/i, /\bsent\s+to\s+client\b/i, /client\s+approv/i],
@@ -60,7 +60,7 @@ const RULES: Array<{ stage: ClientDocStage; patterns: RegExp[] }> = [
 ];
 
 /**
- * Internal review stages. These contain "review" but are NOT client-facing —
+ * Internal review stages. These contain "review" but are NOT client-facing -
  * mapping them to READY_FOR_REVIEW would wrongly tell the client to act while
  * the work is still sitting with the preparer.
  */
@@ -69,7 +69,7 @@ const INTERNAL_REVIEW = /\b(cpa|internal|manager|partner|staff|quality|qa)\b.*\b
 /**
  * Stages that read as terminal but start work rather than ending it.
  * "Extension Filed (Form 7004 / 4868)" is the FIRST stage of an extensions
- * pipeline — filing the extension buys time, the return is still owed. Letting
+ * pipeline - filing the extension buys time, the return is still owed. Letting
  * the generic /\bfiled\b/ rule catch it would tell the client they were done
  * while their return hadn't been started.
  */
@@ -91,7 +91,7 @@ export const classifyStage = (stageName: string): ClientDocStage => {
   return ClientDocStage.IN_PROGRESS;
 };
 
-/** Display order for progress bars — matches the workflow the client is shown. */
+/** Display order for progress bars - matches the workflow the client is shown. */
 export const CLIENT_STAGE_ORDER: ClientDocStage[] = [
   ClientDocStage.REQUESTED,
   ClientDocStage.RECEIVED,

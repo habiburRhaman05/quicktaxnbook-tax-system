@@ -47,7 +47,7 @@ export const fetchLocation = async (token: GhlToken, locationId: string): Promis
 
 /**
  * Step 1 of the Connect flow: is this sub-account real, and is it already
- * spoken for? Runs with the agency token and never blocks the user — if we
+ * spoken for? Runs with the agency token and never blocks the user - if we
  * cannot answer (GHL off, no agency token, token rejected, GHL down) we report
  * `checked: false` with a reason and let the flow continue to the token step,
  * where the pasted sub-account token is verified live.
@@ -103,7 +103,7 @@ export const precheckLocation = async (locationId: string): Promise<GhlLocationP
 
 /**
  * Step 2: prove that a pasted sub-account token actually works, and that it
- * belongs to *this* sub-account — a valid token for a different location must
+ * belongs to *this* sub-account - a valid token for a different location must
  * never be accepted as proof here. Returns the location as GHL describes it, so
  * the UI can show the firm owner what they just connected.
  */
@@ -145,7 +145,7 @@ export const verifyLocationToken = async (
 
 /**
  * Steps 1–3: verify and then attach a sub-account to a firm, storing the token
- * encrypted. Never creates anything in GoHighLevel — the sub-account already
+ * encrypted. Never creates anything in GoHighLevel - the sub-account already
  * exists; we are only linking to it.
  */
 export const connectFirmToLocation = async (params: {
@@ -200,7 +200,7 @@ export const connectFirmToLocation = async (params: {
       },
     });
 
-    // Note what changed — never the credential itself.
+    // Note what changed - never the credential itself.
     await tx.auditLog.create({
       data: {
         firmId: params.firmId,
@@ -239,7 +239,7 @@ export interface GhlAgencyLocationList {
 /**
  * Every sub-account under an agency.
  *
- * `GET /locations/search` — verified against
+ * `GET /locations/search` - verified against
  * https://marketplace.gohighlevel.com/docs/ghl/locations/search-locations/
  * (query `companyId`, `skip`, `limit`, `order`, `email` -> `{ locations: [...] }`).
  *
@@ -287,7 +287,7 @@ export interface GhlAgencyVerification {
  *     inventing one.
  *
  * If the agency has no sub-accounts yet, `companyId` cannot be derived this way
- * and is reported as null — the caller should then ask for it explicitly.
+ * and is reported as null - the caller should then ask for it explicitly.
  */
 export const verifyAgencyToken = async (privateToken: string): Promise<GhlAgencyVerification> => {
   const token = ghlTokenProvider.fromAgencyPrivateToken(privateToken);
@@ -328,7 +328,7 @@ export const verifyAgencyToken = async (privateToken: string): Promise<GhlAgency
 };
 
 // ---------------------------------------------------------------------------
-// Firm flow — the /firms/:locationId page, opened from a GoHighLevel custom menu
+// Firm flow - the /firms/:locationId page, opened from a GoHighLevel custom menu
 // ---------------------------------------------------------------------------
 // The sub-account id arrives in the URL and is NEVER trusted on its own: it is
 // checked against the connected agency first, and only then do we ask the firm
@@ -392,7 +392,7 @@ export const getFirmLocationState = async (locationId: string): Promise<GhlFirmL
 /**
  * The firm's active owner, or failing that its first active member, so the
  * connect flow can sign someone in. Returns `null` when the firm has no usable
- * account — the caller decides what that means.
+ * account - the caller decides what that means.
  */
 export const resolveFirmOwner = async (
   firmId: string
@@ -417,7 +417,7 @@ export interface ConnectFirmResult {
  * firm's owner so the caller can start a session.
  *
  * The firm must already be linked (`Firm.ghlLocationId`). This flow never
- * invents a firm from a GoHighLevel payload — sub-accounts are linked to firms
+ * invents a firm from a GoHighLevel payload - sub-accounts are linked to firms
  * deliberately, not on first sight of a URL.
  */
 const slugify = (value: string): string =>
@@ -463,7 +463,7 @@ const findFirmByOwnerEmail = async (email: string): Promise<GhlLinkedFirm | null
  * Order matters: an already-linked firm wins, then a firm already on the
  * platform with the same contact email (so clicking the menu link can never
  * silently duplicate an onboarded firm), and only then a brand-new firm. The
- * created firm's owner is passwordless on purpose — the sub-account's PIT is how
+ * created firm's owner is passwordless on purpose - the sub-account's PIT is how
  * they sign in, exactly like the agency flow.
  */
 const ensureFirmForLocation = async (
@@ -531,7 +531,7 @@ const ensureFirmForLocation = async (
     // A GoHighLevel location's contact email is NOT proof that it owns an
     // existing account: it may be the platform owner's or an unrelated user's
     // address. Reusing it would hand that person a second firm and could fail
-    // the unique-email constraint, so fall back to a passwordless owner — the
+    // the unique-email constraint, so fall back to a passwordless owner - the
     // sub-account's PIT is how they sign in.
     const emailTaken = email
       ? await tx.user.findUnique({ where: { email }, select: { id: true } })
@@ -615,7 +615,7 @@ export const connectFirmByLocation = async (params: {
  * Links a GoHighLevel sub-account to an existing firm. Agency-session only: the
  * sub-account must be verifiable under the connected agency before anything is
  * written, and a sub-account already linked elsewhere is refused. Deliberately
- * does NOT store a credential — that is the `/firms/:locationId` step.
+ * does NOT store a credential - that is the `/firms/:locationId` step.
  */
 export const linkLocationToFirm = async (params: {
   firmId: string;
@@ -688,7 +688,7 @@ export const linkLocationToFirm = async (params: {
 };
 
 // ---------------------------------------------------------------------------
-// Contacts — used by the firm's "fetch clients from GoHighLevel" sync
+// Contacts - used by the firm's "fetch clients from GoHighLevel" sync
 // ---------------------------------------------------------------------------
 
 interface GhlContactSearchResponse {
@@ -703,14 +703,14 @@ const CONTACT_MAX_PAGES = 20;
 export interface GhlContactList {
   contacts: GhlContact[];
   total: number;
-  /** True when the page cap was hit — some contacts were not read. */
+  /** True when the page cap was hit - some contacts were not read. */
   truncated: boolean;
 }
 
 /**
  * Every contact under a sub-account carrying `tag`.
  *
- * `POST /contacts/search` — verified against the HighLevel API v2 reference
+ * `POST /contacts/search` - verified against the HighLevel API v2 reference
  * (`{ locationId, page, pageLimit, filters: [{ field, operator, value }] }`, and
  * the response carries a `total`). Uses the *sub-account's own* token, so it can
  * only ever read that sub-account's contacts.
@@ -772,7 +772,7 @@ export const listContactsByTag = async (
 /**
  * Every user (staff member) of a sub-account.
  *
- * `GET /users/?locationId=` — uses the sub-account's own token, so it needs the
+ * `GET /users/?locationId=` - uses the sub-account's own token, so it needs the
  * `users.readonly` scope; an auth failure surfaces as a `GhlApiError` the caller
  * can turn into a clear message.
  */
@@ -831,7 +831,7 @@ export const createLocationUser = async (
 };
 
 // ---------------------------------------------------------------------------
-// Contact write-back — keeps the GoHighLevel contact in step with the client
+// Contact write-back - keeps the GoHighLevel contact in step with the client
 // ---------------------------------------------------------------------------
 
 /** Standard GoHighLevel contact fields we write. Never SSN/EIN or passwords. */

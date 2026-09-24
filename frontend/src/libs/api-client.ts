@@ -26,7 +26,7 @@ interface ApiEnvelope<T> {
 interface ApiFetchOptions {
   method?: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
   body?: unknown;
-  /** Set when sending a native FormData body (file uploads) — skips JSON.stringify/content-type. */
+  /** Set when sending a native FormData body (file uploads) - skips JSON.stringify/content-type. */
   isFormData?: boolean;
 }
 
@@ -121,7 +121,7 @@ export function platformEntryFetch<T = unknown>(
 
 /**
  * The firm GoHighLevel connect flow, opened from a GoHighLevel custom menu link
- * (`/firms/{locationId}`). Unauthenticated on entry — the sub-account Private
+ * (`/firms/{locationId}`). Unauthenticated on entry - the sub-account Private
  * Integration Token is the credential, and its route handler owns the session
  * cookies it sets on success.
  */

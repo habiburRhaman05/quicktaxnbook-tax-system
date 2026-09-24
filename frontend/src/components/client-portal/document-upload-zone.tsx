@@ -32,14 +32,14 @@ export function DocumentUploadZone({
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
   const [progress, setProgress] = useState<number | null>(null);
-  // "file 2 of 5" — without this a multi-file drop looks stuck on one bar.
+  // "file 2 of 5" - without this a multi-file drop looks stuck on one bar.
   const [queue, setQueue] = useState<{ done: number; total: number } | null>(null);
   const upload = useUploadDocument(clientId);
 
-  /** Same rules the backend enforces — checked here only to fail fast. */
+  /** Same rules the backend enforces - checked here only to fail fast. */
   const validate = (file: File): string | null => {
     if (file.size > MAX_UPLOAD_BYTES) {
-      return `${file.name} is ${formatBytes(file.size)} — the limit is 10MB.`;
+      return `${file.name} is ${formatBytes(file.size)} - the limit is 10MB.`;
     }
     // Some browsers report an empty type for .doc/.docx, so fall back to the
     // extension rather than rejecting a file the server would accept.
@@ -140,7 +140,7 @@ export function DocumentUploadZone({
             </div>
             <p className="mt-1.5 text-center text-xs text-muted-foreground">
               {queue && queue.total > 1
-                ? `Uploading ${queue.done + 1} of ${queue.total} — ${progress}%`
+                ? `Uploading ${queue.done + 1} of ${queue.total} - ${progress}%`
                 : `Uploading… ${progress}%`}
             </p>
           </div>
@@ -153,12 +153,12 @@ export function DocumentUploadZone({
               )}
             >
               {compact
-                ? 'Upload — you can add several files'
+                ? 'Upload - you can add several files'
                 : 'Drag files here, or click to browse'}
             </p>
             {!compact && (
               <p className="text-xs text-muted-foreground">
-                PDF, JPG, PNG or DOCX — up to 10MB
+                PDF, JPG, PNG or DOCX - up to 10MB
               </p>
             )}
           </>

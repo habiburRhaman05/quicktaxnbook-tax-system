@@ -35,7 +35,7 @@ const envVarsSchema = z.object({
   OTP_EXPIRATION_MINUTES: z.coerce.number().default(5).describe('minutes an OTP code is valid'),
   OTP_MAX_ATTEMPTS: z.coerce.number().default(5).describe('max incorrect OTP attempts allowed'),
 
-  // Email — Gmail SMTP by default (FORM_EMAIL doubles as the SMTP auth user and the From address)
+  // Email - Gmail SMTP by default (FORM_EMAIL doubles as the SMTP auth user and the From address)
   SMTP_HOST: z.string().default('smtp.gmail.com').describe('server that will send the emails'),
   SMTP_PORT: z.coerce.number().default(587).describe('port to connect to the email server'),
   FORM_EMAIL: z.string().email().describe('gmail address used to send emails'),
@@ -68,7 +68,7 @@ const envVarsSchema = z.object({
     .string()
     .optional()
     .describe(
-      'Vercel Blob token for file uploads — create a store in the Vercel dashboard. ' +
+      'Vercel Blob token for file uploads - create a store in the Vercel dashboard. ' +
         'Optional so the app still boots without it; uploads fail with a clear error until it is set.'
     ),
 
@@ -77,7 +77,7 @@ const envVarsSchema = z.object({
     .default('http://localhost:3000,http://localhost:6767')
     .describe('comma-separated list of frontend origins allowed to call this API'),
 
-  // GoHighLevel (GHL). Every value here is optional on purpose — the app must
+  // GoHighLevel (GHL). Every value here is optional on purpose - the app must
   // keep booting and serving the existing product while GHL is being rolled
   // out, and each capability is behind its own flag so it can be rolled back.
   GHL_ENABLED: z
@@ -96,7 +96,7 @@ const envVarsSchema = z.object({
     .describe('retry attempts on 429/5xx, with exponential backoff'),
   // Agency-level private integration token. Used only to check that a
   // sub-account (location) exists before we ask the firm owner for that
-  // sub-account's own token — never for firm data operations, so it can be
+  // sub-account's own token - never for firm data operations, so it can be
   // created with the narrowest scopes available.
   GHL_AGENCY_PIT: z.string().optional(),
   GHL_COMPANY_ID: z.string().optional().describe('agency (company) id for logging/validation'),

@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 /**
  * Mirrors the backend `connectAgencySchema`. The backend cannot know whether a
- * token is *valid* — only GoHighLevel can — so this deliberately checks shape
+ * token is *valid* - only GoHighLevel can - so this deliberately checks shape
  * and length only, and the real verification happens server-side.
  */
 export const connectAgencySchema = z.object({

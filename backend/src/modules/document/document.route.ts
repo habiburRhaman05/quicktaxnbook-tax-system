@@ -21,7 +21,7 @@ router.get('/client/:clientId', requireFirmStaff, controller.listClientDocuments
 router.get('/my/requests', controller.listMyRequests);
 router.get('/my/documents', controller.listMyDocuments);
 
-// --- Upload — clients fulfilling a request, or uploading unprompted ---------
+// --- Upload - clients fulfilling a request, or uploading unprompted ---------
 router.post('/upload', documentUpload.single('file'), controller.uploadDocument);
 
 export default router;

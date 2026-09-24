@@ -20,7 +20,7 @@ export interface BackendEnvelope<T = unknown> {
 // which hangs the browser's spinner forever with no error ever surfacing.
 const BACKEND_TIMEOUT_MS = 25_000;
 
-/** Server-only fetch against the Express API. Never throws — network/parse
+/** Server-only fetch against the Express API. Never throws - network/parse
  * failures (including timeouts) are normalized into a synthetic envelope so
  * callers have one shape to handle. */
 export async function backendFetch<T = unknown>(

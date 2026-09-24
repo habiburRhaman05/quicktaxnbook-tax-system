@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 /**
- * Mirrors the backend `connectFirmSchema`. Only shape/length is checked here —
+ * Mirrors the backend `connectFirmSchema`. Only shape/length is checked here -
  * whether the token actually works, and whether it belongs to *this*
  * sub-account, is decided by GoHighLevel server-side.
  */

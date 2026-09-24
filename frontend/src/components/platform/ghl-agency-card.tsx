@@ -62,7 +62,7 @@ function DetailRow({
 /**
  * Sub-accounts under the connected agency.
  *
- * Read-only against GoHighLevel — this only ever calls `GET /locations/search`.
+ * Read-only against GoHighLevel - this only ever calls `GET /locations/search`.
  * Each row is a candidate target for a firm to connect to later.
  */
 function SubAccountList({
@@ -201,7 +201,7 @@ export function GhlAgencyCard() {
         <CardDescription>
           {isConnected
             ? 'Sub-accounts under this agency. Each firm connects to one of these.'
-            : 'Connect the agency to list its sub-accounts. Paste the agency Private Integration Token — it is verified with GoHighLevel before being saved.'}
+            : 'Connect the agency to list its sub-accounts. Paste the agency Private Integration Token - it is verified with GoHighLevel before being saved.'}
         </CardDescription>
       </CardHeader>
 
@@ -258,7 +258,7 @@ export function GhlAgencyCard() {
               <DialogTitle>Connect GoHighLevel agency</DialogTitle>
               <DialogDescription>
                 Paste the agency Private Integration Token. We call GoHighLevel
-                to check it works, then store it encrypted — nothing is saved if
+                to check it works, then store it encrypted - nothing is saved if
                 the check fails.
               </DialogDescription>
             </DialogHeader>

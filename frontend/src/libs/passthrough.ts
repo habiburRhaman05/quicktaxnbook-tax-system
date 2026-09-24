@@ -6,7 +6,7 @@ import type { TokenPair } from '@/libs/auth-cookies';
 import { setAuthCookies } from '@/libs/auth-cookies';
 import { backendFetch } from '@/libs/backend';
 
-/** A plain POST passthrough to the Express API — no cookies involved. */
+/** A plain POST passthrough to the Express API - no cookies involved. */
 export function jsonPassthrough(path: string) {
   return async function handler(req: Request): Promise<NextResponse> {
     const payload = await req.text();

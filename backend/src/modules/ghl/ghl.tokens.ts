@@ -13,7 +13,7 @@ import type { GhlToken } from './ghl.types';
  *
  * Callers ask for a token *kind* and get a ready-to-use one. They never read
  * env vars, never query the `Integration` table and never see a raw token from
- * anywhere else — so moving from "agency token + locationId" to "one token per
+ * anywhere else - so moving from "agency token + locationId" to "one token per
  * firm" is a change confined to this file.
  *
  * Tokens are never logged. Nothing here returns a token to an HTTP response.

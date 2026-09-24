@@ -4,7 +4,7 @@ import type { GhlToken } from './ghl.types';
 /**
  * GoHighLevel opportunity + pipeline reads/writes.
  *
- * Every function here takes an explicit sub-account (`location`) token — the
+ * Every function here takes an explicit sub-account (`location`) token - the
  * agency token must never be used for these, because opportunities live inside
  * a single sub-account and an agency-scoped call would cross tenants.
  */
@@ -35,7 +35,7 @@ export interface GhlOpportunityDto {
   [key: string]: unknown;
 }
 
-/** `GET /opportunities/pipelines` — every pipeline in the sub-account. */
+/** `GET /opportunities/pipelines` - every pipeline in the sub-account. */
 export const listPipelines = async (
   token: GhlToken,
   locationId: string
@@ -54,7 +54,7 @@ const MAX_PAGES = 20;
 const PAGE_SIZE = 100;
 
 /**
- * `GET /opportunities/search` — every opportunity in a pipeline.
+ * `GET /opportunities/search` - every opportunity in a pipeline.
  *
  * Paginates via `startAfter`/`startAfterId` (GoHighLevel's cursor pair) rather
  * than page numbers, which drift when records change mid-walk. Stops at
@@ -108,7 +108,7 @@ export interface CreateOpportunityInput {
   status?: string;
 }
 
-/** `POST /opportunities` — one opportunity per client engagement. */
+/** `POST /opportunities` - one opportunity per client engagement. */
 export const createOpportunity = async (
   token: GhlToken,
   input: CreateOpportunityInput
@@ -131,7 +131,7 @@ export const createOpportunity = async (
 };
 
 /**
- * `PUT /opportunities/:id` — the push half of the two-way sync.
+ * `PUT /opportunities/:id` - the push half of the two-way sync.
  *
  * Only the fields given are sent, so moving a card's stage never clobbers a
  * value (owner, monetary value, custom field) a staff member set in GoHighLevel.
